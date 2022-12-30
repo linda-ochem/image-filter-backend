@@ -20,14 +20,14 @@ const Jimp = require("jimp");
 //    inputURL: string - a publicly accessible url to an image file
 // RETURNS
 //    an absolute path to a filtered image locally saved file
-function filterImageFromURL(inputURL) {
+function filterImageFromURL(inputURL, image_size) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const photo = yield Jimp.read(inputURL);
                 const outpath = "/tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
                 yield photo
-                    .resize(256, 256) // resize
+                    .resize(image_size, Jimp.AUTO) // resize
                     .quality(60) // set JPEG quality
                     .greyscale() // set greyscale
                     .write(__dirname + outpath, (img) => {
